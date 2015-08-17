@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="posts" realname="posts" primarykey="id" />
+    </datasources>
+    <record>
+		<property name="id" fieldname="id" datatype="autoincrement"/>
+        <property name="post_clientId" fieldname="post_clientId" datatype="int" required="false" default="NULL"/>
+        <property name="post_author" fieldname="post_author" datatype="int" required="false" default="NULL"/>
+        <property name="post_date" fieldname="post_date" datatype="datetime" required="false" default="NULL"/>
+        <property name="post_title" fieldname="post_title" datatype="string" required="false" default="NULL"/>
+        <property name="post_status" fieldname="post_status" datatype="string" required="false" default="NULL"/>
+        <property name="post_name" fieldname="post_name" datatype="string" required="false" default="NULL"/>
+        <property name="guid" fieldname="guid" datatype="string" required="false" default="NULL"/>
+        <property name="post_type" fieldname="post_type" datatype="string" required="false" default="NULL"/>
+		<!--<property name="" fieldname="" datatype="string/int/float/date"
+        required="yes" maxlength="" minlength="" regexp="" sequence=""
+        updatepattern="" insertpattern="" selectpattern=""/>-->
+    </record>
+    <factory>
+        <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
+            <parameter name="" />
+            <values>
+                <value property="" value="" />
+            </values>
+            <conditions logic="and/or">
+                <eq property="" value="" />
+            </conditions>
+            <order>
+                <orderitem property="" way="asc/desc" />
+            </order>
+            <limit offset="" count=""/>
+            <body><![CDATA[
+            ]]></body>
+        </method>-->
+    </factory>
+</dao>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

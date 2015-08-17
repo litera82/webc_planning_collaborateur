@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://jelix.org/ns/module/1.0">
+    <info id="utilisteurs@webi-fy.net" name="utilisteurs" createdate="2011-01-07">
+        <version stability="pre-alpha" date="">0.1pre</version>
+        <label lang="en_EN">utilisteurs</label>
+        <description lang="en_EN"></description>
+        <license URL="">All right reserved</license>
+        <copyright>2010 webi-fy</copyright>
+        <creator name="webi-fy" email="pole.dev@webi-fy.net" active="true" />
+        <!--<contributor name="hisname" email="hisemail@yoursite.undefined" active="true" since="" role=""/>-->
+        <homepageURL>http://www.webi-fy.net</homepageURL>
+        <!--<updateURL>http://www.webi-fy.net/update.xml</updateURL>-->
+    </info>
+    <dependencies>
+        <jelix minversion="1.1.6" maxversion="1.1.6" />
+    </dependencies>
+</module>

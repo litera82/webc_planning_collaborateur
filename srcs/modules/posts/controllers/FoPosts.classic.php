@@ -1,0 +1,254 @@
+<?php
+/**
+* @package   jelix_calendar
+* @subpackage client
+* @author    webi-fy
+* @copyright 2010 webi-fy
+* @link      http://www.webi-fy.net
+* @license    All right reserved
+*/
+
+class FoClientCtrl extends jController{
+	public $pluginParams = array('*' => array('auth.required'=>true)) ;
+    /**
+    *
+    */
+    function add() {
+		global $gJConfig ;
+        $oRep = $this->getResponse('FoHtml');
+
+		$oRep->bodyTpl = "client~FoAjoutClient" ;
+		$oRep->addJSLink ($gJConfig->urlengine['basePath'] . 'design/front/js/jquery-1.3.2.min.js');
+		$oRep->addJSLink ($gJConfig->urlengine['basePath'] . 'design/front/js/jquery-ui-1.7.2.custom.min.js');
+		$oRep->addJSLink ($gJConfig->urlengine['basePath'] . 'design/front/js/timepicker.js');
+		$oRep->addJSLink ($gJConfig->urlengine['basePath'] . 'design/front/js/popup.js');
+		$oRep->addJSLink ($gJConfig->urlengine['basePath'] . 'design/front/js/stagiaire.js');
+
+		$oRep->addCSSLink ($gJConfig->urlengine['basePath'] . 'design/front/css/layout.css');
+		$oRep->addCSSLink ($gJConfig->urlengine['basePath'] . 'design/front/css/commun.css');
+		//$oRep->addCSSLink ($gJConfig->urlengine['basePath'] . 'design/front/css/home.css');
+		$oRep->addCSSLink ($gJConfig->urlengine['basePath'] . 'design/front/css/jquery-ui-1.7.2.custom.css');
+
+		$oRep->addJSLink ($gJConfig->urlengine['basePath'] . 'design/front/js/jquery.autocomplete.js');
+		$oRep->addJSLink ($gJConfig->urlengine['basePath'] . 'design/front/js/jquery.maskedinput-1.2.2.min.js');
+		$oRep->addCSSLink ($gJConfig->urlengine['basePath'] . 'design/front/css/jquery.autocomplete.css');
+
+		$iEvenementId = $this->param('iEvenementId', 0, true);
+		$iClientId = $this->param('iClientId', 0, true);
+		$tEvent = $this->request->params; 
+		if (isset ($_SESSION['tEvent'])){
+			unset($tEvent);
+		}
+		if (isset($_SESSION['tEvent'])){
+			$_SESSION['tEvent'] = $tEvent;
+		}
+		$oRep->body->assignZone('oZoneLegend', 'commun~FoLegende', array());
+		$oRep->body->assignZone('oZoneAjoutClient', 'client~FoAjoutClient', array('iEvenementId'=> $iEvenementId, 'iClientId'=>$iClientId));
+		return $oRep;
+    }
+
+
+	function autocompleteSociete(){
+		$oRep = $this->getResponse('encodedJson');
+		$CritereNom = $this->param('q','',true);
+		$tCritere = explode(' ', trim($CritereNom));
+		$zSql=sprintf("SELECT * FROM societe WHERE ");
+		$t = array();
+		foreach ($tCritere as $zCritere) {
+			$t[] = sprintf(" societe_zNom like '%%%s%%' ", trim(addslashes($zCritere)) );
+		}
+		$zSql .= implode(" OR ", $t);
+		$zSql .= " GROUP BY societe_id ORDER BY societe_zNom ASC ";  
+		$oCnx = jDb::getConnection();
+		$oRes = $oCnx->query($zSql);
+		$oRep->datas = $oRes->fetchAll();
+
+		return $oRep;
+	}
+
+
+	function save() {
+    	$toParams = $this->params() ;
+		jClasses::inc('client~clientSrv');
+ 		jClasses::inc('client~societeSrv');
+
+		if (isset($toParams['client_iSociete']) && $toParams['client_iSociete'] == 0 && isset($toParams['client_zSociete']) && $toParams['client_zSociete'] != ""){
+			$toSociete['societe_zNom'] = $toParams['client_zSociete'];
+			$toSociete['societe_iStatut'] = 1;
+			$oNewSociete = societeSrv::save($toSociete) ;
+			if (is_object ($oNewSociete) && isset($oNewSociete->societe_id) && $oNewSociete->societe_id > 0){
+				$toParams['client_iSociete'] = $oNewSociete->societe_id ;
+			}
+		}
+
+        $oclient = clientSrv::save($toParams) ;
+		$iEvenementId = $toParams['iEvenementId'];
+        $oResp = $this->getResponse('redirect') ;
+		if (isset ($_SESSION['tEvent'])){
+			$tEvent = $_SESSION['tEvent'];
+			if (isset ($tEvent['dtcm_event_rdv'])){
+				$tzdtcm_event_rdv = explode (' ', $tEvent['dtcm_event_rdv']);
+				$tzDate = explode ('/', $tzdtcm_event_rdv[0]);
+				$tzTime = explode (':', $tzdtcm_event_rdv[1]);
+				
+				$zDate = $tzDate[2].'-'.$tzDate[1].'-'.$tzDate[0];
+				$iTime = $tzTime[0].':'.$tzTime[1];
+
+				$oResp->action = 'evenement~FoEvenement:add' ;
+				$oResp->params = array('iEvenementId'=>$iEvenementId, 'zDate'=>$zDate, 'iTime'=>$iTime);
+			}else{
+				$oResp->action = 'client~FoClient:getClientListing' ;
+				$oResp->params = array();
+			}
+		}else{
+			$oResp->action = 'client~FoClient:getClientListing' ;
+			$oResp->params = array();
+		}
+		return $oResp ;
+    }
+
+	function rechercherStagiaire (){
+		/*global $gJConfig;
+		$oRep = $this->getResponse('encodedJson');
+
+		$zStagiaire = $this->param('zStagiaire', "", true); 
+        jClasses::inc('client~clientSrv');
+		$toStagiaire = clientSrv::rechercherStagiaire ($zStagiaire);
+		$oRep->datas = $toStagiaire;
+		return $oRep;*/
+
+		$rep        = $this->getResponse('encodedJson');
+		jClasses::inc('evenement~evenementSrv');
+		jClasses::inc ('utilisateurs~utilisateursSrv') ;
+		$oUser = jAuth::getUserSession();
+		$iUtilisateurId = utilisateursSrv::getUtilisateurConnecter($oUser->login, $oUser->password);
+
+		$CritereNom = $this->param('zStagiaire','',true);
+		$tCritere = explode(' ', trim($CritereNom));
+		//$zSql="SELECT * FROM clients WHERE 1=1 AND client_iUtilisateurCreateurId = " . $iUtilisateurId . " AND (";
+		$zSql="SELECT * FROM clients WHERE 1=1 AND (";
+		$t = array();
+		foreach ($tCritere as $zCritere) {
+			$t[] = sprintf(" client_zNom like '%%%s%%' ", trim(addslashes($zCritere)) );
+			$t[] = sprintf(" client_zPrenom like '%%%s%%' ", trim(addslashes($zCritere)) );
+		}
+		$zSql .= implode(" OR ", $t);
+		$zSql .= ") GROUP BY client_id ORDER BY client_zNom ASC ";  
+
+		$cnx        = jDb::getConnection();
+		$oRes       = $cnx->query($zSql);
+		$rep->datas  = $oRes->fetchAll();
+		return $rep;
+	}
+
+	function chargeParId(){
+		global $gJConfig;
+		$oRep = $this->getResponse('encodedJson');
+
+		$iStagiaireId = $this->param('iStagiaireId', 0, true); 
+        jClasses::inc('client~clientSrv');
+		$toParams = array();
+		$toParams[0] = new stdClass();
+		$toParams[0]->id = $iStagiaireId;
+		$toStagiaire = clientSrv::listCriteria($toParams);
+		$oRep->datas = $toStagiaire['toListes'][0];
+		return $oRep;
+	}
+	
+	function clientListing (){
+		global $gJConfig ;
+        $oRep = $this->getResponse('FoHtml');
+		
+		$oRep->addJSLink ($gJConfig->urlengine['basePath'] . 'design/front/js/jquery.autocomplete.js');
+		$oRep->addJSLink ($gJConfig->urlengine['basePath'] . 'design/front/js/jquery.maskedinput-1.2.2.min.js');
+		$oRep->addCSSLink ($gJConfig->urlengine['basePath'] . 'design/front/css/jquery.autocomplete.css');
+
+		$oRep->bodyTpl = "client~FoClientListing" ;
+    	jClasses::inc('typeEvenement~typeEvenementsSrv');
+    	jClasses::inc('client~clientSrv');
+    	jClasses::inc('utilisateurs~utilisateursSrv');
+
+		$toParamsUtilisateur['utilisateur_statut'] = 1;
+		jClasses::inc ('utilisateurs~utilisateursSrv') ;
+		$oUser = jAuth::getUserSession();
+		$iUtilisateurId = utilisateursSrv::getUtilisateurConnecter($oUser->login, $oUser->password);
+		if ($iUtilisateurId == AUDIT_ID_CATRIONA){
+       		$toProfesseur = utilisateursSrv::listCriteria($toParamsUtilisateur);
+		}else{
+			$toProfesseur['toListes'] = array () ;
+			$oUtilisateur = utilisateursSrv::getById ($iUtilisateurId) ;
+			array_push ($toProfesseur['toListes'], $oUtilisateur);
+			if (isset($oUtilisateur->utilisateur_bSuperviseur) && $oUtilisateur->utilisateur_bSuperviseur == UTILISATEUR_SUPERVISEUR){
+				/*$toTmpProfesseur = utilisateursSrv::getUtilisateurBySuperviseurId($iUtilisateurId) ;
+				foreach($toTmpProfesseur as $oProfesseur){
+					array_push ($toProfesseur['toListes'], $oProfesseur);
+				}*/
+				$toParamsUtilisateur['utilisateur_statut'] = 1;
+				$toParamsUtilisateur['notinutilisateur'] = $iUtilisateurId;
+				$toTmpProfesseur = utilisateursSrv::listCriteria($toParamsUtilisateur, 'utilisateur_zPrenom');
+				//$toTmpProfesseur = utilisateursSrv::getUtilisateurBySuperviseurId($iUtilisateurId) ;
+				foreach($toTmpProfesseur['toListes'] as $oProfesseur){
+					array_push ($toProfesseur['toListes'], $oProfesseur);
+				}
+			}
+		}
+
+		$oRep->body->assign('toProfesseur', $toProfesseur['toListes']);
+
+		return $oRep;
+	}
+
+	function getClientListing (){
+		global $gJConfig ;
+        $oRep = $this->getResponse('FoHtml');
+
+		$oRep->addJSLink ($gJConfig->urlengine['basePath'] . 'design/front/js/jquery.autocomplete.js');
+		$oRep->addJSLink ($gJConfig->urlengine['basePath'] . 'design/front/js/jquery.maskedinput-1.2.2.min.js');
+		$oRep->addCSSLink ($gJConfig->urlengine['basePath'] . 'design/front/css/jquery.autocomplete.css');
+
+		$oRep->bodyTpl = "client~FoClientListingResult" ;
+		
+    	jClasses::inc('client~clientSrv');
+    	jClasses::inc('utilisateurs~utilisateursSrv');
+
+		$toParams[0] = new stdClass();
+		$toParams[0]->nom = $this->param('client_zNom', '', true);
+		$toParams[0]->prenom = $this->param('client_zPrenom', '', true);
+		$toParams[0]->societe = $this->param('client_zSociete', '', true);
+		$toParams[0]->client_iUtilisateurCreateurId = $this->param('client_iUtilisateurCreateurId', 0, true);
+		$toParams[0]->client_testDebut = $this->param('client_testDebut', 2, true);
+		$toParams[0]->fo = 1 ;
+
+		$toStagiaire = clientSrv::listCriteria($toParams);
+
+		$toParamsUtilisateur['utilisateur_statut'] = 1;
+		jClasses::inc ('utilisateurs~utilisateursSrv') ;
+		$oUser = jAuth::getUserSession();
+		$iUtilisateurId = utilisateursSrv::getUtilisateurConnecter($oUser->login, $oUser->password);
+		if ($iUtilisateurId == AUDIT_ID_CATRIONA){
+       		$toProfesseur = utilisateursSrv::listCriteria($toParamsUtilisateur);
+		}else{
+			$toProfesseur['toListes'] = array () ;
+			$oUtilisateur = utilisateursSrv::getById ($iUtilisateurId) ;
+			array_push ($toProfesseur['toListes'], $oUtilisateur);
+			if (isset($oUtilisateur->utilisateur_bSuperviseur) && $oUtilisateur->utilisateur_bSuperviseur == UTILISATEUR_SUPERVISEUR){
+				/*$toTmpProfesseur = utilisateursSrv::getUtilisateurBySuperviseurId($iUtilisateurId) ;
+				foreach($toTmpProfesseur as $oProfesseur){
+					array_push ($toProfesseur['toListes'], $oProfesseur);
+				}*/
+				$toParamsUtilisateur['utilisateur_statut'] = 1;
+				$toParamsUtilisateur['notinutilisateur'] = $iUtilisateurId;
+				$toTmpProfesseur = utilisateursSrv::listCriteria($toParamsUtilisateur, 'utilisateur_zPrenom');
+				//$toTmpProfesseur = utilisateursSrv::getUtilisateurBySuperviseurId($iUtilisateurId) ;
+				foreach($toTmpProfesseur['toListes'] as $oProfesseur){
+					array_push ($toProfesseur['toListes'], $oProfesseur);
+				}
+			}
+		}
+
+		$oRep->body->assign('toStagiaire', $toStagiaire);
+		$oRep->body->assign('toProfesseur', $toProfesseur['toListes']);
+		$oRep->body->assign('toParams', $toParams);
+		return $oRep;
+	} 
+}

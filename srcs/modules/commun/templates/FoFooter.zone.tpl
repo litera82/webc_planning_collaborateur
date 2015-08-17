@@ -1,0 +1,7 @@
+				<div id="menu" style="padding-top:20px;text-align:center;" class="noPrint">
+					<span class="prefix" style="font-size:1.3em;">Aller à:</span> 
+					<a href="{jurl 'jelix_calendar~FoCalendar:index'}" style="font-size:1.3em;font-weight: bold;" title="Mon agenda">Mon agenda</a> | <a href="#" style="font-size:1.3em;font-weight: bold;" title="Aujourd'hui">Aujourd'hui</a> {if $oUtilisateur->utilisateur_iTypeId == TYPE_UTILISATEUR_ADLINISTRATEUR}| <a href="{$j_basepath}admin.php" style="font-size:1.3em;font-weight: bold;" title="Administration">Administration</a>{/if} | <a onmouseover="window.status='Event Listing'" href="{jurl 'evenement~FoEvenement:eventListing'}" target="_blank" style="font-size:1.3em;font-weight: bold;" title="Events Listing">Event Listing</a> | <a onmouseover="window.status='Event Listing'" href="{jurl 'client~FoClient:projetListing'}" target="_blank" style="font-size:1.3em;font-weight: bold;" title="Events Listing">Listing des projets</a>
+				</div>
+				<div id="menu" style="padding-top:20px;text-align:center;padding-bottom:20px;" class="noPrint">
+					<span class="prefix">Utilisateur actuel:</span>{$oUtilisateur->utilisateur_zNom} {$oUtilisateur->utilisateur_zPrenom}(<a href="{jurl 'jauth~login:outFO'}" title="Déconnexion">Déconnexion</a>)
+				</div>

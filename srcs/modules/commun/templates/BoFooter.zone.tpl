@@ -1,0 +1,1 @@
+<p id="footer">&copy; 2011 WEBCALENDAR</p>

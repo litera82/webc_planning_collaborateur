@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="utilisateursindisponibilite" realname="utilisateursindisponibilite" primarykey="id" />
+    </datasources>
+    <record>
+        <property name="id" fieldname="id" datatype="autoincrement"/>
+		<property name="utilisateur_id" fieldname="utilisateur_id" datatype="int" required="true"/>
+		<property name="lundi_debut_matin" fieldname="lundi_debut_matin" datatype="string" maxlength="8" default="00:00:00"/>
+		<property name="lundi_fin_matin" fieldname="lundi_fin_matin" datatype="string" maxlength="8" default="00:00:00"/>
+		<property name="lundi_debut_apres_midi" fieldname="lundi_debut_apres_midi" datatype="string" maxlength="8" default="00:00:00"/>
+		<property name="lundi_fin_soir" fieldname="lundi_fin_soir" datatype="string" maxlength="8" default="00:00:00"/>
+		<property name="mardi_debut_matin" fieldname="mardi_debut_matin" datatype="string" maxlength="8" default="00:00:00"/>
+		<property name="mardi_fin_matin" fieldname="mardi_fin_matin" datatype="string" maxlength="8" default="00:00:00"/>
+		<property name="mardi_debut_apres_midi" fieldname="mardi_debut_apres_midi" datatype="string" maxlength="8" default="00:00:00"/>
+		<property name="mardi_fin_soir" fieldname="mardi_fin_soir" datatype="string" maxlength="8" default="00:00:00"/>
+		<property name="mercredi_debut_matin" fieldname="mercredi_debut_matin" datatype="string" maxlength="8" default="00:00:00"/>
+		<property name="mercredi_fin_matin" fieldname="mercredi_fin_matin" datatype="string" maxlength="8" default="00:00:00"/>
+		<property name="mercredi_debut_apres_midi" fieldname="mercredi_debut_apres_midi" datatype="string" maxlength="8" default="00:00:00"/>
+		<property name="mercredi_fin_soir" fieldname="mercredi_fin_soir" datatype="string" maxlength="8" default="00:00:00"/>
+		<property name="jeudi_debut_matin" fieldname="jeudi_debut_matin" datatype="string" maxlength="8" default="00:00:00"/>
+		<property name="jeudi_fin_matin" fieldname="jeudi_fin_matin" datatype="string" maxlength="8" default="00:00:00"/>
+		<property name="jeudi_debut_apres_midi" fieldname="jeudi_debut_apres_midi" datatype="string" maxlength="8" default="00:00:00"/>
+		<property name="jeudi_fin_soir" fieldname="jeudi_fin_soir" datatype="string" maxlength="8" default="00:00:00"/>
+		<property name="vendredi_debut_matin" fieldname="vendredi_debut_matin" datatype="string" maxlength="8" default="00:00:00"/>
+		<property name="vendredi_fin_matin" fieldname="vendredi_fin_matin" datatype="string" maxlength="8" default="00:00:00"/>
+		<property name="vendredi_debut_apres_midi" fieldname="vendredi_debut_apres_midi" datatype="string" maxlength="8" default="00:00:00"/>
+		<property name="vendredi_fin_soir" fieldname="vendredi_fin_soir" datatype="string" maxlength="8" default="00:00:00"/>
+
+        <!--<property name="utilisateur_iSuperviseurId" fieldname="utilisateur_iSuperviseurId" datatype="int" required="false"/>
+        <property name="" fieldname="" datatype="string/int/float/date"
+        required="yes" maxlength="" minlength="" regexp="" sequence=""
+        updatepattern="" insertpattern="" selectpattern=""/>-->
+    </record>
+    <factory>
+        <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
+            <parameter name="" />
+            <values>
+                <value property="" value="" />
+            </values>
+            <conditions logic="and/or">
+                <eq property="" value="" />
+            </conditions>
+            <order>
+                <orderitem property="" way="asc/desc" />
+            </order>
+            <limit offset="" count=""/>
+            <body><![CDATA[
+            ]]></body>
+        </method>-->
+    </factory>
+</dao>

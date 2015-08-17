@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="evenement" realname="evenement" primarykey="evenement_id" />
+    </datasources>
+    <record>
+		<property name="evenement_id" fieldname="evenement_id" datatype="autoincrement"/>
+        <property name="evenement_iTypeEvenementId" fieldname="evenement_iTypeEvenementId" datatype="int" required="true" />
+        <property name="evenement_iUtilisateurId" fieldname="evenement_iUtilisateurId" datatype="int" required="true" />
+        <property name="evenement_zLibelle" fieldname="evenement_zLibelle" datatype="string" required="true" maxlength="80"/>
+        <property name="evenement_zDescription" fieldname="evenement_zDescription" datatype="string" />
+        <property name="evenement_iStagiaire" fieldname="evenement_iStagiaire" datatype="int" />
+        <property name="evenement_zContactTel" fieldname="evenement_zContactTel" datatype="string" />
+        <property name="evenement_zDateHeureDebut" fieldname="evenement_zDateHeureDebut" datatype="string" />
+        <property name="evenement_zDateHeureSaisie" fieldname="evenement_zDateHeureSaisie" datatype="string" />
+        <property name="evenement_iDuree" fieldname="evenement_iDuree" datatype="int" />
+        <property name="evenement_iDureeTypeId" fieldname="evenement_iDureeTypeId" datatype="int" />
+        <property name="evenement_iPriorite" fieldname="evenement_iPriorite" datatype="int" required="true" />
+        <property name="evenement_iRappel" fieldname="evenement_iRappel" datatype="int"/>
+        <property name="evenement_iTypeRappelId" fieldname="evenement_iTypeRappelId" datatype="int"/>
+        <property name="evenement_iStatut" fieldname="evenement_iStatut" datatype="int" required="true" />
+        <property name="evenement_origine" fieldname="evenement_origine" datatype="int" default="0" />
+        <!--<property name="" fieldname="" datatype="string/int/float/date"
+        required="yes" maxlength="" minlength="" regexp="" sequence=""
+        updatepattern="" insertpattern="" selectpattern=""/>-->
+    </record>
+    <factory>
+        <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
+            <parameter name="" />
+            <values>
+                <value property="" value="" />
+            </values>
+            <conditions logic="and/or">
+                <eq property="" value="" />
+            </conditions>
+            <order>
+                <orderitem property="" way="asc/desc" />
+            </order>
+            <limit offset="" count=""/>
+            <body><![CDATA[
+            ]]></body>
+        </method>-->
+    </factory>
+</dao>
+

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="wp_posts_to_import" realname="wp_posts_to_import" primarykey="ID" />
+    </datasources>
+    <record>
+		<property name="ID" fieldname="ID" datatype="autoincrement"/>
+        <property name="post_author" fieldname="post_author" datatype="int" required="false" default="1"/>
+        <property name="post_date" fieldname="post_date" datatype="datetime" required="false" default="0000-00-00 00:00:00"/>
+        <property name="post_date_gmt" fieldname="post_date_gmt" datatype="datetime" required="false" default="0000-00-00 00:00:00"/>
+        <property name="post_content" fieldname="post_content" datatype="string" required="false" default=" "/>
+        <property name="post_title" fieldname="post_title" datatype="string" required="false" default=" "/>
+        <property name="post_excerpt" fieldname="post_excerpt" datatype="string" required="false" default="-"/>
+        <property name="post_status" fieldname="post_status" datatype="string" required="false" default=""/>
+        <property name="comment_status" fieldname="comment_status" datatype="string" required="false" default="-"/>
+        <property name="ping_status" fieldname="ping_status" datatype="string" required="false" default="-"/>
+        <property name="post_password" fieldname="post_password" datatype="string" required="false" default="-"/>
+        <property name="post_name" fieldname="post_name" datatype="string" required="false" default=" "/>
+        <property name="to_ping" fieldname="to_ping" datatype="string" required="false" default="-"/>
+        <property name="pinged" fieldname="pinged" datatype="string" required="false" default="-"/>
+        <property name="post_modified" fieldname="post_modified" datatype="datetime" required="false" default="0000-00-00 00:00:00"/>
+        <property name="post_modified_gmt" fieldname="post_modified_gmt" datatype="datetime" required="false" default="0000-00-00 00:00:00"/>
+        <property name="post_content_filtered" fieldname="post_content_filtered" datatype="string" required="false" default="-"/>
+        <property name="post_parent" fieldname="post_parent" datatype="int" required="false" default="0"/>
+        <property name="guid" fieldname="guid" datatype="string" required="false" default=" "/>
+        <property name="menu_order" fieldname="menu_order" datatype="int" required="false" default="0"/>
+        <property name="post_type" fieldname="post_type" datatype="string" required="false" default=" "/>
+        <property name="post_mime_type" fieldname="post_mime_type" datatype="string" required="false" default="-"/>
+        <property name="comment_count" fieldname="comment_count" datatype="int" required="false" default="0"/>
+		<!--<property name="" fieldname="" datatype="string/int/float/date"
+        required="yes" maxlength="" minlength="" regexp="" sequence=""
+        updatepattern="" insertpattern="" selectpattern=""/>-->
+    </record>
+    <factory>
+        <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
+            <parameter name="" />
+            <values>
+                <value property="" value="" />
+            </values>
+            <conditions logic="and/or">
+                <eq property="" value="" />
+            </conditions>
+            <order>
+                <orderitem property="" way="asc/desc" />
+            </order>
+            <limit offset="" count=""/>
+            <body><![CDATA[
+            ]]></body>
+        </method>-->
+    </factory>
+</dao>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="utilisateurs" realname="utilisateurs" primarykey="utilisateur_id" />
+    </datasources>
+    <record>
+        <property name="utilisateur_id" fieldname="utilisateur_id" datatype="autoincrement"/>
+        <property name="utilisateur_iTypeId" fieldname="utilisateur_iTypeId" datatype="int" required="true"/>
+        <property name="utilisateur_iCivilite" fieldname="utilisateur_iCivilite" datatype="int" required="true"/>
+        <property name="utilisateur_zNom" fieldname="utilisateur_zNom" datatype="string" required="true" maxlength="40"/>
+        <property name="utilisateur_zPrenom" fieldname="utilisateur_zPrenom" datatype="string" default="" maxlength="40"/>
+        <property name="utilisateur_zMail" fieldname="utilisateur_zMail" datatype="string" required="true" maxlength="40"/>
+        <property name="utilisateur_zLogin" fieldname="utilisateur_zLogin" datatype="string" required="true" maxlength="40"/>
+        <property name="utilisateur_zPass" fieldname="utilisateur_zPass" datatype="string" required="true" maxlength="40"/>
+        <property name="utilisateur_zTel" fieldname="utilisateur_zTel" datatype="string" required="true" maxlength="20"/>
+        <property name="utilisateur_iPays" fieldname="utilisateur_iPays" datatype="int" required="true" />
+        <property name="utilisateur_decalageHoraire" fieldname="utilisateur_decalageHoraire" datatype="string" default="0" />
+        <property name="utilisateur_plageHoraireId" fieldname="utilisateur_plageHoraireId" datatype="int" required="true" />
+        <property name="utilisateur_statut" fieldname="utilisateur_statut" datatype="int" required="true"/>
+        <property name="utilisateur_bSuperviseur" fieldname="utilisateur_bSuperviseur" datatype="int" required="false" default="0"/>
+        <property name="utilisateur_bSendExcel" fieldname="utilisateur_bSendExcel" datatype="int" required="false" default="0"/>
+        <property name="utilisateur_frequenceSendExcel" fieldname="utilisateur_frequenceSendExcel" datatype="int" required="false" default="0"/>
+        <property name="utilisateur_zSendExcelCopie" fieldname="utilisateur_zSendExcelCopie" datatype="string" required="false"/>
+        <property name="utilisateur_planBoard" fieldname="utilisateur_planBoard" datatype="int" default="1"/>
+        <!--<property name="utilisateur_iSuperviseurId" fieldname="utilisateur_iSuperviseurId" datatype="int" required="false"/>
+        <property name="" fieldname="" datatype="string/int/float/date"
+        required="yes" maxlength="" minlength="" regexp="" sequence=""
+        updatepattern="" insertpattern="" selectpattern=""/>-->
+    </record>
+    <factory>
+        <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
+            <parameter name="" />
+            <values>
+                <value property="" value="" />
+            </values>
+            <conditions logic="and/or">
+                <eq property="" value="" />
+            </conditions>
+            <order>
+                <orderitem property="" way="asc/desc" />
+            </order>
+            <limit offset="" count=""/>
+            <body><![CDATA[
+            ]]></body>
+        </method>-->
+    </factory>
+</dao>

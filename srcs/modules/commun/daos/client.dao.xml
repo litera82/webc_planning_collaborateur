@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="client" realname="clients" primarykey="client_id" />
+    </datasources>
+    <record>
+		<property name="client_id" fieldname="client_id" datatype="autoincrement"/>
+        <property name="client_iSociete" fieldname="client_iSociete" datatype="int" required="true" />
+        <property name="client_iCivilite" fieldname="client_iCivilite" datatype="int" required="true"/>
+        <property name="client_iUtilisateurCreateurId" fieldname="client_iUtilisateurCreateurId" datatype="int" required="false"/>
+        <property name="client_zNom" fieldname="client_zNom" datatype="string" required="true" maxlength="255" />
+        <property name="client_zPrenom" fieldname="client_zPrenom" datatype="string" maxlength="255"/>
+        <property name="client_zFonction" fieldname="client_zFonction" datatype="string" maxlength="255"/>
+        <property name="client_zMail" fieldname="client_zMail" datatype="string" required="true" maxlength="255"/>
+        <property name="client_zLogin" fieldname="client_zLogin" datatype="string" required="true" maxlength="255"/>
+        <property name="client_zPass" fieldname="client_zPass" datatype="string" required="true" maxlength="255"/>
+        <property name="client_zTel" fieldname="client_zTel" datatype="string" maxlength="20"/>
+        <property name="client_zPortable" fieldname="client_zPortable" datatype="string" maxlength="40"/>
+        <property name="client_zRue" fieldname="client_zRue" datatype="string" maxlength="255"/>
+        <property name="client_zVille" fieldname="client_zVille" datatype="string" maxlength="255"/>
+        <property name="client_zCP" fieldname="client_zCP" datatype="string" maxlength="40"/>
+        <property name="client_iPays" fieldname="client_iPays" datatype="int" />
+        <property name="client_iNumIndividu" fieldname="client_iNumIndividu" datatype="string" maxlength="80"/>
+        <property name="client_iRefIndividu" fieldname="client_iRefIndividu" datatype="string" maxlength="80"/>
+        <property name="client_zCryptedKey" fieldname="client_zCryptedKey" datatype="string" maxlength="80"/>
+        <property name="client_iStatut" fieldname="client_iStatut" datatype="int" required="true" />
+        <property name="client_testDebut" fieldname="client_testDebut" datatype="int" required="true" default="0"/>
+        <property name="client_dateCreation" fieldname="client_dateCreation" datatype="datetime" required="false" default="NULL"/>
+        <property name="client_dateMaj" fieldname="client_dateMaj" datatype="datetime" required="false" default="NULL"/>
+        <property name="client_url" fieldname="client_url" datatype="string" required="false" default="NULL"/>
+		<!--<property name="" fieldname="" datatype="string/int/float/date"
+        required="yes" maxlength="" minlength="" regexp="" sequence=""
+        updatepattern="" insertpattern="" selectpattern=""/>-->
+    </record>
+    <factory>
+        <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
+            <parameter name="" />
+            <values>
+                <value property="" value="" />
+            </values>
+            <conditions logic="and/or">
+                <eq property="" value="" />
+            </conditions>
+            <order>
+                <orderitem property="" way="asc/desc" />
+            </order>
+            <limit offset="" count=""/>
+            <body><![CDATA[
+            ]]></body>
+        </method>-->
+    </factory>
+</dao>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

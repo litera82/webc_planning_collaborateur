@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+   <datasources>
+      <primarytable name="usr" realname="utilisateurs" primarykey="utilisateur_id" />
+   </datasources>
+   <record>
+      <property name="id" fieldname="utilisateur_id" datatype="autoincrement"/>
+      <property name="login" fieldname="utilisateur_zLogin"
+          required="yes" datatype="string"  maxlength="50" />
+
+      <property name="email" fieldname="utilisateur_zMail"
+                datatype="string" required="yes" maxlength="255" />
+
+      <property name="password" fieldname="utilisateur_zPass" datatype="string"
+                maxlength="50" selectpattern="%s" updatepattern="" insertpattern="%s" />
+   </record>
+   <factory>
+     <method name="getByLoginPassword" type="selectfirst">
+         <parameter name="login" />
+         <parameter name="password" />
+
+         <conditions>
+             <eq property="login" expr="$login" />
+             <eq property="password" expr="$password" />
+         </conditions>
+     </method>
+
+     <method name="getByLogin" type="selectfirst">
+         <parameter name="login" />
+
+         <conditions>
+             <eq property="login" expr="$login" />
+         </conditions>
+     </method>
+
+     <method name="updatePassword" type="update">
+         <parameter name="login" />
+         <parameter name="password" />
+
+         <values>
+             <value property="password" expr="$password"/>
+         </values>
+         <conditions>
+             <eq property="login" expr="$login" />
+         </conditions>
+     </method>
+
+     <method name="deleteByLogin" type="delete">
+         <parameter name="login" />
+         <conditions>
+             <eq property="login" expr="$login" />
+         </conditions>
+     </method>
+
+     <method name="findByLogin" type="select">
+         <parameter name="pattern" />
+         <conditions>
+             <like property="login" expr="$pattern" />
+         </conditions>
+         <order>
+             <orderitem property="login" way="asc" />
+          </order>
+     </method>
+     <method name="findAll" type="select">
+         <order>
+             <orderitem property="login" way="asc" />
+         </order>
+     </method>
+
+   </factory>
+</dao>
