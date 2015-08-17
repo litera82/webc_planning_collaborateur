@@ -11,7 +11,7 @@
 
 define ('JELIX_APP_PATH', dirname (__FILE__).DIRECTORY_SEPARATOR); // don't change
 
-define ('JELIX_APP_TEMP_PATH',    realpath(JELIX_APP_PATH.'../../jelix/temp/webcalendar-imcos-info/').DIRECTORY_SEPARATOR);
+define ('JELIX_APP_TEMP_PATH',    realpath(JELIX_APP_PATH.'../../jelix/temp/webcalendar-collab/').DIRECTORY_SEPARATOR);
 define ('JELIX_APP_VAR_PATH',     realpath(JELIX_APP_PATH.'./var/').DIRECTORY_SEPARATOR);
 define ('JELIX_APP_LOG_PATH',     realpath(JELIX_APP_PATH.'./var/log/').DIRECTORY_SEPARATOR);
 define ('JELIX_APP_CONFIG_PATH',  realpath(JELIX_APP_PATH.'./var/config/').DIRECTORY_SEPARATOR);
